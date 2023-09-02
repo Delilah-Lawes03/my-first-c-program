@@ -1,10 +1,17 @@
-#include <stdio.h>
 // #include <stdlib.h> for malloc, free
+#include <stdio.h>
+#include <stdbool.h>
 
 int main() {
-    char name[20];
-    printf("Enter name: ");
-    scanf("%s", name);
-    printf("Your name is %s.", name);
+
+    //do while
+    int i = 0;
+    do {
+        printf("i = %d\n", i); //checked before condition.
+        i++;
+    } while (i < 1);
+
+
+
     return 0;
 }
