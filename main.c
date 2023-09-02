@@ -1,17 +1,14 @@
 // #include <stdlib.h> for malloc, free
 #include <stdio.h>
-#include <stdbool.h>
+#include <math.h>
 
 int main() {
+    int num;
+    scanf("%d", &num);
 
-    //do while
-    int i = 0;
-    do {
-        printf("i = %d\n", i); //checked before condition.
-        i++;
-    } while (i < 1);
-
-
+    //find cube root
+    double cubeRoot = cbrt(num);
+    printf("%.2lf\n", cubeRoot);
 
     return 0;
 }
