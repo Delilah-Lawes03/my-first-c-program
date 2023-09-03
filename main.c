@@ -1,38 +1,105 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+#include <ctype.h>
+
+// returns either 'r', 'p', or 's' for rock, paper or scissors
+char getComputersChoice() {
+
+    // generate random number based on time
+    srand(time(NULL));
+
+    int randomNumber = (rand() % 3) + 1;
+    char computersChoice;
+
+    switch(randomNumber) {
+        case 1:
+            computersChoice = 'r';
+            break;
+        case 2:
+            computersChoice = 'p';
+            break;
+        case 3:
+            computersChoice = 's';
+            break;
+    }
+
+    return computersChoice;
+}
+
+// take user input and return it
+// function to get user input
+char getUserInput() {
+    char userInput;
+
+    printf("Enter Your Choice\n(r for rock, p for paper, s for scissors): ");
+    scanf(" %c", &userInput);
+
+    userInput = tolower(userInput);
+
+    return userInput;
+}
+
+// return either 'w', 'l' or 'd' for win, loss and draw
+char getResult(char userPick, char computerPick) {
+
+    // condition for user to draw
+    if (computerPick == userPick) {
+        return 'd';
+    }
+
+        // condition for user to win
+    else if (userPick == 'p' && computerPick == 'r') {
+        return 'w';
+    }
+    else if (userPick == 'r' && computerPick == 's') {
+        return 'w';
+    }
+    else if (userPick == 's' && computerPick == 'p') {
+        return 'w';
+    }
+
+        // all other conditions result in user losing
+    else {
+        return 'l';
+    }
+}
 
 int main() {
 
-    int* marks;
+    // get computer choice
+    char computerPick = getComputersChoice();
 
-    // allocate 3 memory
-    marks = (int*) malloc(3 * sizeof(int));
-
-    // get input value for marks
-    for (int i = 0; i < 3; ++i) {
-        scanf("%d", (marks + i));
+    // get input until user enters 'r', 'p' or 's'
+    char userPick;
+    while (1) {
+        userPick = getUserInput();
+        if (userPick == 'r' || userPick == 'p' || userPick == 's') {
+            break;
+        }
     }
 
-    // print array elements
-    for (int i = 0; i < 3; ++i) {
-        printf("%d\n", *(marks + i));
+
+    char result = getResult(userPick, computerPick);
+
+    // print result
+    switch(result) {
+        case 'w':
+            printf("Computer's pick: %c\n", computerPick);
+            printf("Your pick: %c\n", userPick);
+            printf("You won");
+            break;
+        case 'l':
+            printf("Computer's pick: %c\n", computerPick);
+            printf("Your pick: %c\n", userPick);
+            printf("You lose");
+            break;
+        case 'd':
+            printf("Computer's pick: %c\n", computerPick);
+            printf("Your pick: %c\n", userPick);
+            printf("Draw");
+            break;
     }
-
-    // resize the array to store 5 elements
-    marks = realloc(marks, 5 * sizeof(int));
-
-    // assign the value of 2 new elements
-    *(marks + 3) = 13;
-    *(marks + 4) = 15;
-
-    // print the array elements
-    printf("\n");
-    for (int i = 0; i < 5; ++i) {
-        printf("%d\n", *(marks + i));
-    }
-
-    // deallocate the memory
-    free(marks);
 
     return 0;
 }
